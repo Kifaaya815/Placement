@@ -1,0 +1,39 @@
+def user_logic(n, arr):
+    MOD = 10**9 + 7
+
+    # Step 1: Save original index with each value
+    original = [(val, idx) for idx, val in enumerate(arr)]
+
+    # Step 2: Sort the array by value (not index)
+    sorted_arr = sorted(val for val in arr)
+
+    # Step 3: Find last index of each value in the sorted array
+    last_occurrence = {}
+    for idx, val in enumerate(sorted_arr):
+        last_occurrence[val] = idx  # update each time to get the last index
+
+    # Step 4: Calculate measurement
+    total = 0
+    for val, orig_idx in original:
+        last_idx_sorted = last_occurrence[val]
+        sanity = orig_idx + last_idx_sorted
+        total = (total + sanity) % MOD
+
+    return total
+
+    pass
+
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().strip().split()
+    
+    n = int(data[0])  # First input is the integer n
+    arr = list(map(int, data[1:]))  # Remaining input is the array of integers
+    
+    # Call user logic function and print the output
+    result = user_logic(n, arr)
+    print(result)
+
+if __name__ == "__main__":
+    main()
